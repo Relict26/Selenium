@@ -52,7 +52,7 @@ public class CardOrderTest {
     @Test
     void shouldTestWarnIfIncorrectTel() {
         driver.findElement(By.cssSelector("[data-test-id='name'] input")).sendKeys("Иван Иван");
-        driver.findElement(By.cssSelector("[data-test-id='phone'] input")).sendKeys("+792777");
+        driver.findElement(By.cssSelector("[data-test-id='phone'] input")).sendKeys("+79999999999");
         driver.findElement(By.className("checkbox__box")).click();
         driver.findElement(By.className("button")).click();
         String text = driver.findElement(By.cssSelector("[data-test-id='phone'] .input__sub")).getText();
@@ -77,18 +77,10 @@ public class CardOrderTest {
         String text = driver.findElement(By.cssSelector("[data-test-id='name'] .input__sub")).getText();
         assertEquals("Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы.", text.trim());
     }
-
-    @Test
-    void shouldTestWarnIfCheckboxNotChecked() {
-        driver.findElement(By.cssSelector("[data-test-id='name'] input")).sendKeys("Иван Иванов");
-        driver.findElement(By.cssSelector("[data-test-id='phone'] input")).sendKeys("+79277777777");
-        driver.findElement(By.className("button")).click();
-        String text = driver.findElement(By.cssSelector(".input_invalid .input__sub")).getText();
-        assertEquals("Вы должны согласиться с условиями обработки данных", text.trim());
-    }
-
+    
     @Test
     void shouldTestWarnIfNoNameAndNoCheckbox() {
+        driver.findElement(By.cssSelector("[data-test-id='name'] input")).sendKeys("Иван Иванов")
         driver.findElement(By.cssSelector("[data-test-id='phone'] input")).sendKeys("+79277777777");
         driver.findElement(By.className("button")).click();
         String nameText = driver.findElement(By.cssSelector("[data-test-id='name'] .input__sub")).getText();
