@@ -91,8 +91,6 @@ public class CardOrderTest {
         driver.findElement(By.className("button")).click();
         String nameText = driver.findElement(By.cssSelector("[data-test-id='name'] .input__sub")).getText();
         assertEquals("Поле обязательно для заполнения", nameText.trim());
-        String checkboxText = driver.findElement(By.cssSelector(".input_invalid .input__sub")).getText();
-        assertEquals("Вы должны согласиться с условиями обработки данных", checkboxText.trim());
         String checkboxText = driver.findElement(By.cssSelector("[data-test-id='agreement'] .input__sub")).getText();
         assertEquals("Вы должны согласиться с условиями обработки данных", checkboxText.trim());
         String checkboxInvalidClass = driver.findElement(By.cssSelector(".checkbox__box.input_invalid")).getAttribute("class");
