@@ -90,21 +90,27 @@ import java.time.Duration;
             assertTrue(nameInput.getAttribute("class").contains("input_invalid"));
         }
 
-        @Test
+               @Test
         void shouldTestWarnIfIncorrectName() {
+            // Вводим некорректное имя
             driver.findElement(By.cssSelector("[data-test-id='name'] input")).sendKeys("Ivan");
             driver.findElement(By.cssSelector("[data-test-id='phone'] input")).sendKeys("+79277777777");
             driver.findElement(By.className("checkbox__box")).click();
             driver.findElement(By.className("button")).click();
-
             // Ожидание предупреждения о неверном имени
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[data-test-id='name'] .input__sub")));
+            try {
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[data-test-id='name'] .input__sub")));
+            } catch (TimeoutException e) {
+                fail("Предупреждение о неверном имени не отображается.");
+            }
+
             String text = driver.findElement(By.cssSelector("[data-test-id='name'] .input__sub")).getText();
             assertEquals("Имя и Фамилия указаны неверно. Допустимы только русские буквы, пробелы и дефисы.", text.trim());
-
             WebElement nameInput = driver.findElement(By.cssSelector("[data-test-id='name'] input"));
-            assertTrue(nameInput.getAttribute("class").contains("input_invalid"));
+            assertTrue(nameInput.getAttribute("class").contains("input_invalid"), "Поле имени должно быть выделено как неверное.");
         }
+
+        Найти еще
 
         @Test
         void shouldTestWarnIfNoNameAndNoCheckbox() {
