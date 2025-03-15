@@ -55,10 +55,13 @@ public class CardOrderTest {
         driver.findElement(By.cssSelector("[data-test-id='phone'] input")).sendKeys("+79999999999");
         driver.findElement(By.className("checkbox__box")).click();
         driver.findElement(By.className("button")).click();
+
         String text = driver.findElement(By.cssSelector("[data-test-id='phone'] .input__sub")).getText();
         assertEquals("Телефон указан неверно. Должно быть 11 цифр, например, +79999999999.", text.trim());
-        String invalidClass = driver.findElement(By.cssSelector("[data-test-id='phone'] input_invalid")).getAttribute("class");
-        assertTrue(invalidClass.contains("input_invalid"));
+
+        // Проверка на наличие класса input_invalid
+        WebElement phoneInput = driver.findElement(By.cssSelector("[data-test-id='phone'] input"));
+        assertTrue(phoneInput.getAttribute("class").contains("input_invalid"));
     }
 
     @Test
@@ -66,10 +69,12 @@ public class CardOrderTest {
         driver.findElement(By.cssSelector("[data-test-id='phone'] input")).sendKeys("+79277777777");
         driver.findElement(By.className("checkbox__box")).click();
         driver.findElement(By.className("button")).click();
+
         String text = driver.findElement(By.cssSelector("[data-test-id='name'] .input__sub")).getText();
         assertEquals("Поле обязательно для заполнения", text.trim());
-        String invalidClass = driver.findElement(By.cssSelector("[data-test-id='name'] input_invalid")).getAttribute("class");
-        assertTrue(invalidClass.contains("input_invalid"));
+
+        WebElement nameInput = driver.findElement(By.cssSelector("[data-test-id='name'] input"));
+        assertTrue(nameInput.getAttribute("class").contains("input_invalid"));
     }
 
     @Test
@@ -78,23 +83,27 @@ public class CardOrderTest {
         driver.findElement(By.cssSelector("[data-test-id='phone'] input")).sendKeys("+79277777777");
         driver.findElement(By.className("checkbox__box")).click();
         driver.findElement(By.className("button")).click();
+
         String text = driver.findElement(By.cssSelector("[data-test-id='name'] .input__sub")).getText();
         assertEquals("Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы.", text.trim());
-        String invalidClass = driver.findElement(By.cssSelector("[data-test-id='name'] input_invalid")).getAttribute("class");
-        assertTrue(invalidClass.contains("input_invalid"));
+
+        WebElement nameInput = driver.findElement(By.cssSelector("[data-test-id='name'] input"));
+        assertTrue(nameInput.getAttribute("class").contains("input_invalid"));
     }
 
     @Test
     void shouldTestWarnIfNoNameAndNoCheckbox() {
-        driver.findElement(By.cssSelector("[data-test-id='name'] input")).sendKeys("Иван Иванов");
         driver.findElement(By.cssSelector("[data-test-id='phone'] input")).sendKeys("+79277777777");
         driver.findElement(By.className("button")).click();
+
         String nameText = driver.findElement(By.cssSelector("[data-test-id='name'] .input__sub")).getText();
         assertEquals("Поле обязательно для заполнения", nameText.trim());
-        String checkboxText = driver.findElement(By.cssSelector("[data-test-id='agreement'] .input__sub")).getText();
+
+        WebElement nameInput = driver.findElement(By.cssSelector("[data-test-id='name'] input"));
+        assertTrue(nameInput.getAttribute("class").contains("input_invalid"));
+
+        String checkboxText = driver.findElement(By.cssSelector(".input_invalid .input__sub")).getText();
         assertEquals("Вы должны согласиться с условиями обработки данных", checkboxText.trim());
-        String checkboxInvalidClass = driver.findElement(By.cssSelector(".checkbox__box.input_invalid")).getAttribute("class");
-        assertTrue(checkboxInvalidClass.contains("input_invalid"));
     }
 
     @Test
@@ -102,7 +111,11 @@ public class CardOrderTest {
         driver.findElement(By.cssSelector("[data-test-id='name'] input")).sendKeys("Иван Иванов");
         driver.findElement(By.className("checkbox__box")).click();
         driver.findElement(By.className("button")).click();
-        String text = driver.findElement(By.cssSelector("[data-test-id='phone'] .input__sub")).getText();
-        assertEquals("Поле обязательно для заполнения", text.trim());
+
+        String phoneText = driver.findElement(By.cssSelector("[data-test-id='phone'] .input__sub")).getText();
+        assertEquals("Поле обязательно для заполнения", phoneText.trim());
+
+        WebElement phoneInput = driver.findElement(By.cssSelector("[data-test-id='phone'] input"));
+        assertTrue(phoneInput.getAttribute("class").contains("input_invalid"));
     }
 }
