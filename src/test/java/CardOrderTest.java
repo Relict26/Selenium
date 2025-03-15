@@ -110,8 +110,6 @@ import java.time.Duration;
             assertTrue(nameInput.getAttribute("class").contains("input_invalid"), "Поле имени должно быть выделено как неверное.");
         }
 
-        Найти еще
-
         @Test
         void shouldTestWarnIfNoNameAndNoCheckbox() {
             driver.findElement(By.cssSelector("[data-test-id='phone'] input")).sendKeys("+79277777777");
