@@ -88,7 +88,7 @@ public class CardOrderTest {
 
         // Проверка ошибки для чекбокса
         String checkboxError = driver.findElement(By.cssSelector("[data-test-id='agreement'] .checkbox__text")).getText();
-        assertEquals("Вы должны согласиться с условиями", checkboxError.trim());
+        assertEquals("Я соглашаюсь с условиями обработки и использования моих персональных данных и разрешаю сделать запрос в бюро кредитных историй", checkboxError.trim());
     }
 
     @Test
@@ -99,7 +99,7 @@ public class CardOrderTest {
 
         // Проверка ошибки для чекбокса
         String checkboxError = driver.findElement(By.cssSelector("[data-test-id='agreement'] .checkbox__text")).getText();
-        assertEquals("Вы должны согласиться с условиями", checkboxError.trim());
+        assertEquals("Я соглашаюсь с условиями обработки и использования моих персональных данных и разрешаю сделать запрос в бюро кредитных историй", checkboxError.trim());
     }
 }
 
