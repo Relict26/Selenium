@@ -9,8 +9,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CardOrderTest {
@@ -58,7 +56,6 @@ public class CardOrderTest {
         driver.findElement(By.className("checkbox__box")).click();
         driver.findElement(By.className("button")).click();
         String text = driver.findElement(By.cssSelector("[data-test-id='phone'].input_invalid .input__sub")).getText();
-        // Изменили проверку на начало строки, чтобы не зависеть от примера номера
         assertTrue(text.trim().startsWith("Телефон указан неверно. Должно быть 11 цифр"));
     }
 
@@ -78,17 +75,19 @@ public class CardOrderTest {
         driver.findElement(By.className("checkbox__box")).click();
         driver.findElement(By.className("button")).click();
         String text = driver.findElement(By.cssSelector("[data-test-id='name'].input_invalid .input__sub")).getText();
-        assertEquals("Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы.", text.trim());
+        assertEquals("Имя и Фамилия указаны неверно. Допустимы только русские буквы, пробелы и дефисы.", text.trim());
     }
 
     @Test
     void shouldTestWarnIfNoNameAndUncheckedCheckbox() {
         driver.findElement(By.cssSelector("[data-test-id='phone'] input")).sendKeys("+79277777777");
         driver.findElement(By.className("button")).click();
-        // Разделили проверку на два отдельных утверждения
+
+        // Проверка ошибки для имени
         String nameError = driver.findElement(By.cssSelector("[data-test-id='name'].input_invalid .input__sub")).getText();
         assertEquals("Поле обязательно для заполнения", nameError.trim());
 
+        // Проверка ошибки для чекбокса
         String checkboxError = driver.findElement(By.cssSelector(".checkbox__text")).getText();
         assertEquals("Вы должны согласиться с условиями", checkboxError.trim());
     }
@@ -102,5 +101,4 @@ public class CardOrderTest {
         assertEquals("Поле обязательно для заполнения", text.trim());
     }
 }
-
 
